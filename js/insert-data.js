@@ -1,15 +1,16 @@
 var mongoose = require('mongoose')
 var Schemas = mongoose.Schemas
+
 mongoose.Promise = global.Promise
 
 mongoose.connect('mongodb://localhost:27017/SmAshevilleV2')
 
-let Operations = {}
+let Insert = {}
 
-// REMEBER: when using these functions, collectionName should be a singluar noun, but mongoose will
+// REMEMBER: when using these functions, collectionName should be a singluar noun, but mongoose will
 // make it plural when turning the model into a collection.
 
-Operations.insertParticipants = function (inputData, collectionName) {
+Insert.Participants = function (inputData, collectionName) {
   let promiseArray = []
   let model = mongoose.model(collectionName, Schemas.participantSchema)
 
@@ -23,7 +24,7 @@ Operations.insertParticipants = function (inputData, collectionName) {
   return Promise.all(promiseArray)
 }
 
-Operations.insertTournaments = function (inputData, collectionName) {
+Insert.Tournaments = function (inputData, collectionName) {
   let promiseArray = []
   let model = mongoose.model(collectionName, Schemas.tournamentSchema)
 
@@ -36,7 +37,7 @@ Operations.insertTournaments = function (inputData, collectionName) {
 
 // NOTE: support for match data has not been added yet and so this is likely buggy
 
-Operations.insertMatches = function (inputData, collectionName) {
+Insert.Matches = function (inputData, collectionName) {
   let promiseArray = []
   let model = mongoose.model(collectionName, Schemas.matchSchema)
 
@@ -61,4 +62,4 @@ function handleError (err) {
   throw (err)
 }
 
-module.exports = Operations
+module.exports = Insert

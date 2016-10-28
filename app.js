@@ -4,7 +4,6 @@ var favicon = require('serve-favicon')
 var logger = require('morgan')
 var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
-var challongeAPI = require('challonge-node')
 
 var routes = require('./routes/index')
 var users = require('./routes/users')
@@ -32,10 +31,6 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use('/', routes)
 app.use('/users', users)
 app.use('/dev', dev)
-
-// This makes the challonge API accessible throughout the application, possibly temporary.
-const challonge = challongeAPI.withAPIKey('hvA3eLb7hzOGS5py3PM3ZaGJAlRHTACaktnlobkQ')
-app.locals.challonge = challonge
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
