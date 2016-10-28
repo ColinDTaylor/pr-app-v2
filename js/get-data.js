@@ -6,13 +6,18 @@ mongoose.connect('mongodb://localhost:27017/SmAshevilleV2')
 
 let Operations = {}
 
+// REMEBER: when using these functions, collectionName should be a singluar noun, but mongoose will
+// make it plural when turning the model into a collection.
+
 Operations.insertParticipants = function (inputData, collectionName) {
   let promiseArray = []
   let model = mongoose.model(collectionName, Schemas.participantSchema)
 
-  inputData.map(tournament => {
-    tournament.map(participant => {
-      promiseArray.push(insertionPromise(participant.participant, model))
+  // NOTE: does the use of 'this' here work? I'm not sure if it will or not
+
+  inputData.forEach(() => {
+    this.forEach(() => {
+      promiseArray.push(insertionPromise(this.participant, model))
     })
   })
   return Promise.all(promiseArray)
@@ -22,21 +27,23 @@ Operations.insertTournaments = function (inputData, collectionName) {
   let promiseArray = []
   let model = mongoose.model(collectionName, Schemas.tournamentSchema)
 
-  inputData.map(tournament => {
-    promiseArray.push(insertionPromise(tournament.tournament, model))
+  inputData.forEach(() => {
+    promiseArray.push(insertionPromise(this.tournament, model))
   })
+
   return Promise.all(promiseArray)
 }
 
+// NOTE: support for match data has not been added yet and so this is likely buggy
+
 Operations.insertMatches = function (inputData, collectionName) {
   let promiseArray = []
+  let model = mongoose.model(collectionName, Schemas.matchSchema)
 
-  for (let tournament of inputData) {
-    for (let match of tournament) {
-      // TODO: writh the match insert lol
-      match = match
-    }
-  }
+  inputData.forEach(() => {
+    promiseArray.push(insertionPromise(this.match, model))
+  })
+
   return Promise.all(promiseArray)
 }
 
@@ -45,7 +52,6 @@ Operations.insertMatches = function (inputData, collectionName) {
 function insertionPromise (inputData, inputModel) {
   return inputModel.create(inputData, (err, data) => {
     if (err) return handleError(err)
-  // What happens when there's a ton of superfluos data in the input?
   })
 }
 
