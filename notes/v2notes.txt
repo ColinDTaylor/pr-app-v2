@@ -1,0 +1,43 @@
+Tools used from the start
+-------------------------
+  • Codebase   : Node.js v 6.8
+  • CSS engine : Sass/Less
+  • Server     : Express 4
+  • Database   : MongoDB 3.2
+  • ODM        : Mongoose
+  • Code style : StandardJS
+  • Templating : Pug (formerly know as jade)
+  • Challonge  : challonge-node (NOT node-challonge, they're different)
+
+#########################
+
+Ideas for the structure of the project
+-------------------------
+  • Each PR season should be encapsulated inside an instance of a "Season" class.
+    – These seasons can contain all of the methods required to get the data from the database
+      and manipulate it.
+    – Seasons would be defined (from this point forward) according to their active dates.
+
+  • Each player would be an instance of a "Player" class.
+    – These objects should contain all of the methods needed to generate player-specific statistics.
+
+Tournaments and matches do not need to be their own classes, as they're really just data that the
+seasons class should be manipulating, and mongoose will already put the objects in the correct
+configuration.
+
+Modules
+  • schemas.js
+  • get-data.js
+  • queries.js
+  • seasons.js
+  • players.js
+
+  These are mostly just theoretical ideas for how this project could be organized. I'm not sure
+exactly how modular it should be, but I kind of like the idea of many small modules that have clear
+purposes as opposed to a few massive modules that define lots of functionality.
+
+########################
+
+Database structure
+-------------------------
+  • The database should contain
