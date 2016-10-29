@@ -12,11 +12,9 @@ Insert.participants = function (inputData, collectionName) {
   let promiseArray = []
   let model = mongoose.model(collectionName, Schemas.participantSchema)
 
-  // NOTE: does the use of 'this' here work? I'm not sure if it will or not
-
-  inputData.forEach(() => {
-    this.forEach(() => {
-      promiseArray.push(insertionPromise(this.participant, model))
+  inputData.forEach(tournament => {
+    tournament.forEach(doc => {
+      promiseArray.push(insertionPromise(doc, model))
     })
   })
   return Promise.all(promiseArray)
@@ -49,7 +47,6 @@ Insert.matches = function (inputData, collectionName) {
 // Helper (non-exported) functions
 
 function insertionPromise (inputData, inputModel) {
-  console.log(inputData)
   return inputModel.create(inputData, (err, data) => {
     if (err) return handleError(err)
   })

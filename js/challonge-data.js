@@ -21,4 +21,16 @@ api.getSinglesBrackets = function (first, last) {
   return Promise.all(outputArray)
 }
 
+api.getParticipants = function (first, last) {
+  let outputArray = []
+
+  for (let weekNum = first; weekNum <= last; weekNum++) {
+    let tournamentURL = `smasheville${weekNum}`
+
+    outputArray.push(challonge.participants.index(tournamentURL))
+  }
+
+  return Promise.all(outputArray)
+}
+
 module.exports = api
