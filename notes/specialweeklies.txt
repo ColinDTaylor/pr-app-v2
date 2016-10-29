@@ -1,0 +1,10 @@
+Brackets in a different place than normal:
+  1: bracket is on the 'Absolome' challonge account
+  2: bracket was on paper, no challogne equivalent exists
+  3: bracket is on the 'TS3D' challonge account
+
+No singles bracket:
+  8, 16
+
+Other special cases:
+  15: bracket had 2 pools, the usual url is just the top 8

@@ -1,18 +1,28 @@
 var express = require('express')
 var router = express.Router()
-var challongeAPI = require('challonge-node')
+// var challongeAPI = require('challonge-node')
+var insert = require('../js/insert-data.js')
+var challongeData = require('../js/challonge-data')
 
-const challonge = challongeAPI.withAPIKey('hvA3eLb7hzOGS5py3PM3ZaGJAlRHTACaktnlobkQ')
+// const challonge = challongeAPI.withAPIKey('hvA3eLb7hzOGS5py3PM3ZaGJAlRHTACaktnlobkQ')
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
   res.render('dev', { title: 'Express' })
 })
 
-router.get('/challongeGet/:tournamentId', (req, res, next) => {
-  challonge.tournaments.show(req.params.tournamentId).then(tournament => {
-    res.send(tournament)
-  })
+router.get('/challongeGet/:collectionName/:idStart/:idEnd', (req, res, next) => {
+  if (Number(req.params.idStart) > Number(req.params.idEnd)) {
+    res.send('Make sure the second URL parameter is larger than the first.')
+  } else {
+    challongeData.getSinglesBrackets(req.params.idStart, req.params.idEnd)
+      .then(data => {
+        return insert.tournaments(data, req.params.collectionName)
+      })
+      .then(output => {
+        res.send(output)
+      })
+  }
 })
 
 module.exports = router

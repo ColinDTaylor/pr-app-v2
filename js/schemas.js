@@ -1,5 +1,5 @@
 var mongoose = require('mongoose')
-var Schema = mongoose.Schemas
+var Schema = mongoose.Schema
 mongoose.Promise = global.Promise
 
 mongoose.connect('mongodb://localhost:27017/SmAshevilleV2')
@@ -18,10 +18,10 @@ Schemas.participantSchema = new Schema({
   id: Number,
   name: String,
   seed: Number,
-  tournamentId: Number,
-  createdAt: Date,
-  updatedAt: Date,
-  finalRank: Number
+  tournament_id: Number,
+  created_at: Date,
+  updated_at: Date,
+  final_rank: Number
 })
 
 Schemas.tournamentSchema = new Schema({
@@ -29,17 +29,16 @@ Schemas.tournamentSchema = new Schema({
   name: String,
   url: String,
   description: String,
-  startedAt: Date,
-  completedAt: Date,
-  createdAt: Date,
-  updatedAt: Date,
-  gameId: Number,
-  participantsCount: Number,
+  started_at: Date,
+  completed_at: Date,
+  created_at: Date,
+  updated_at: Date,
+  game_id: Number,
+  participants_count: Number,
   state: String,
-  fullChallongeUrl: String,
-  liveImageUrl: String,
-  gameName: String,
-  progressMeter: Number
+  full_challonge_url: String,
+  live_image_url: String,
+  game_name: String
 })
 
 Schemas.matchSchema = new Schema({

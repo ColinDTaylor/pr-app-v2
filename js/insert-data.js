@@ -1,16 +1,14 @@
 var mongoose = require('mongoose')
-var Schemas = mongoose.Schemas
+var Schemas = require('./schemas')
 
 mongoose.Promise = global.Promise
-
-mongoose.connect('mongodb://localhost:27017/SmAshevilleV2')
 
 let Insert = {}
 
 // REMEMBER: when using these functions, collectionName should be a singluar noun, but mongoose will
 // make it plural when turning the model into a collection.
 
-Insert.Participants = function (inputData, collectionName) {
+Insert.participants = function (inputData, collectionName) {
   let promiseArray = []
   let model = mongoose.model(collectionName, Schemas.participantSchema)
 
@@ -24,12 +22,12 @@ Insert.Participants = function (inputData, collectionName) {
   return Promise.all(promiseArray)
 }
 
-Insert.Tournaments = function (inputData, collectionName) {
+Insert.tournaments = function (inputData, collectionName) {
   let promiseArray = []
   let model = mongoose.model(collectionName, Schemas.tournamentSchema)
 
-  inputData.forEach(() => {
-    promiseArray.push(insertionPromise(this.tournament, model))
+  inputData.forEach(doc => {
+    promiseArray.push(insertionPromise(doc, model))
   })
 
   return Promise.all(promiseArray)
@@ -37,7 +35,7 @@ Insert.Tournaments = function (inputData, collectionName) {
 
 // NOTE: support for match data has not been added yet and so this is likely buggy
 
-Insert.Matches = function (inputData, collectionName) {
+Insert.matches = function (inputData, collectionName) {
   let promiseArray = []
   let model = mongoose.model(collectionName, Schemas.matchSchema)
 
@@ -51,6 +49,7 @@ Insert.Matches = function (inputData, collectionName) {
 // Helper (non-exported) functions
 
 function insertionPromise (inputData, inputModel) {
+  console.log(inputData)
   return inputModel.create(inputData, (err, data) => {
     if (err) return handleError(err)
   })
