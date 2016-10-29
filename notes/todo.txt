@@ -1,0 +1,13 @@
+
+Major Stuff
+------------------------------
+- Port over the survey front end from old project butt better this time (jquery?)
+- Create literally any sort of front end for dev
+
+- I want to make a page that lists every single unique tag next to a dropdown menu and an
+  'associate' button, which would allow us to easily associate aliases w/ people's primary tags
+
+  this would require a LOT of backend, starting with some kind of list of each participant's
+  primary tag.
+
+- We need modules for 3 different classes: Seasons, Players, & Tournaments.
