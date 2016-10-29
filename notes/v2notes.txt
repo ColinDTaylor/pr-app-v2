@@ -40,4 +40,4 @@ purposes as opposed to a few massive modules that define lots of functionality.
 
 Database structure
 -------------------------
-  • The database should contain
+  • lmao
