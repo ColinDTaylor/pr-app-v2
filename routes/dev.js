@@ -3,6 +3,7 @@ var router = express.Router()
 var insert = require('../js/insert-data')
 var challongeData = require('../js/challonge-data')
 var queries = require('../js/queries')
+var aliasHandler = require('../js/alias-handler')
 
 // This is a route used to perform certain developer functions such as populating a local db,
 // for now all of them are activated by just going to that page because I'm FAR too lazy to code
@@ -43,6 +44,10 @@ router.get('/participantsGet/:collectionName/:idStart/:idEnd', (req, res, next) 
 
 router.get('/uniqueParticipants', (req, res, next) => {
   queries.uniqueParticipantNames().then(docs => {
+    for (let player of docs) {
+      player.cleanedName = aliasHandler.processAlias(player._id)
+      console.log(player._id)
+    }
     res.locals.tagList = docs
     res.render('players-list', res.locals)
   })
