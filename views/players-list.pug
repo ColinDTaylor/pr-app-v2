@@ -1,0 +1,7 @@
+extends layout
+
+block content
+  ul
+    each player in tagList
+      li
+        p #{player.count} – #{player._id}

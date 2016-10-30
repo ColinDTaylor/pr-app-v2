@@ -1,10 +1,12 @@
 var express = require('express')
 var router = express.Router()
-// var challongeAPI = require('challonge-node')
-var insert = require('../js/insert-data.js')
+var insert = require('../js/insert-data')
 var challongeData = require('../js/challonge-data')
+var queries = require('../js/queries')
 
-// const challonge = challongeAPI.withAPIKey('hvA3eLb7hzOGS5py3PM3ZaGJAlRHTACaktnlobkQ')
+// This is a route used to perform certain developer functions such as populating a local db,
+// for now all of them are activated by just going to that page because I'm FAR too lazy to code
+// a proper front end for them.
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
@@ -37,6 +39,13 @@ router.get('/participantsGet/:collectionName/:idStart/:idEnd', (req, res, next) 
         res.send(output)
       })
   }
+})
+
+router.get('/uniqueParticipants', (req, res, next) => {
+  queries.uniqueParticipantNames().then(docs => {
+    res.locals.tagList = docs
+    res.render('players-list', res.locals)
+  })
 })
 
 module.exports = router

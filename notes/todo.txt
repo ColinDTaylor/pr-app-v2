@@ -11,3 +11,9 @@ Major Stuff
   primary tag.
 
 - We need modules for 3 different classes: Seasons, Players, & Tournaments.
+
+- Set up babel so we can code our front end in Real™ js
+
+- I kinda want to set up a thing so that a local test database can be populated in seconds
+
+- We should have to-dos in github issues!
