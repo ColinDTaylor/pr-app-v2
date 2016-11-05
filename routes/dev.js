@@ -45,10 +45,20 @@ router.get('/participantsGet/:collectionName/:idStart/:idEnd', (req, res, next) 
 router.get('/uniqueParticipants', (req, res, next) => {
   queries.uniqueParticipantNames().then(docs => {
     for (let player of docs) {
-      player.cleanedName = aliasHandler.processAlias(player._id)
+      player.tag = aliasHandler.processAlias(player._id)
       console.log(player._id)
     }
     res.locals.tagList = docs
+    res.render('players-list', res.locals)
+  })
+})
+
+router.get('/getParticipantsSince/:month/:year', (req, res, next) => {
+  queries.getParticipantsSince(req.params.month, req.params.year).then(docs => {
+    res.locals.tagList = docs.sort((a, b) => {
+      return Number(b.count) - Number(a.count)
+    })
+
     res.render('players-list', res.locals)
   })
 })
